@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Dimensions, ScrollView, Image, Text, View } from "react-native";
 import { Card, CardItem, DeckSwiper, Left, Right, Button } from "native-base";
+import Properties from "../Properties";
 
 const { height, width } = Dimensions.get("window");
 export default class Detail extends Component {
@@ -10,21 +11,14 @@ export default class Detail extends Component {
       selectValue: {
         url: [
           {
-            image: "https://tfc-sharetribe-files-prod.s3.amazonaws.com/images/listing_images/images/3019/original/dsc_0402.jpg"
+            image: require('../../../../assets/property1/image1.png')
           },
           {
-            image: "http://www.maxviewrealty.com/img/2017-02-28/times-square-shanghai-apartment-rental-707*471-12403.jpg"
+            image: require('../../../../assets/property1/image2.png')
           },
           {
-            image: "http://www.besteventrentals.net/images/stories/virtuemart/product/5-square-table-rental.jpg"
-          },
-          {
-            image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJrKcAFxo2PAsnrxE_nt9Bc-47andj6pbxociiId5lQIoVt5TD"
-          },
-          {
-            image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRFHfk67op0P-ACeScc4j1UsiEBOzSJca1ACGPb67BoSqz7zDH4"
-          },
-          { image: "http://midtwn.com/wp-content/uploads/2014/05/photo-1.jpg" }
+            image: require('../../../../assets/property1/image3.png')
+          }
         ],
         price: " 2 lACS",
         location: "DHA Defence, Karachi, Sindh",
@@ -40,7 +34,7 @@ export default class Detail extends Component {
   }
 
   static navigationOptions = {
-    title: "RETAL SQUARE",
+    title: "Dominion",
     headerStyle: {
       backgroundColor: "#fff"
     },
@@ -53,7 +47,13 @@ export default class Detail extends Component {
     }
   };
 
+  componentWillUnmount(){
+    console.log('run')
+    this.props.navigation.setParams({detailInformation: null})
+  }
   render() {
+    const property = JSON.parse(this.props.navigation.getParam('detailInformation'));
+    console.log(property,'xxxxxxxxxxxxxxxxx')
     return (
       <ScrollView
         contentContainerStyle={{
@@ -97,7 +97,7 @@ export default class Detail extends Component {
               </View>
             </View>
             <DeckSwiper
-              dataSource={this.state.selectValue.url}
+              dataSource={property.url}
               // style={{}}
               renderItem={item => (
                 <Card
@@ -109,7 +109,7 @@ export default class Detail extends Component {
                 >
                   <CardItem cardBody>
                     <Image
-                      source={{ uri: item.image }}
+                      source={item.image}
                       style={{ width: width, height: height / 4 }}
                     />
                   </CardItem>
@@ -131,7 +131,7 @@ export default class Detail extends Component {
             >
               <View
                 style={{
-                  width: width / 2,
+                  width: width ,
                   alignItems: "flex-start",
                   paddingLeft: width / 36
                 }}
@@ -143,10 +143,11 @@ export default class Detail extends Component {
                     fontWeight: "bold"
                   }}
                 >
-                  RENTAL SQUARE
+                  {/* RENTAL SQUARE */}
+                  {property.name}
                 </Text>
               </View>
-              <View
+              {/* <View
                 style={{
                   width: width / 2,
                   flexDirection: "row",
@@ -172,7 +173,7 @@ export default class Detail extends Component {
                 >
                   {this.state.selectValue.price}
                 </Text>
-              </View>
+              </View> */}
             </View>
             <View
               style={{
@@ -297,12 +298,13 @@ export default class Detail extends Component {
                 About Project
               </Text>
               <Text style={{ color: "#000", fontSize: width / 36 }}>
-                Lorem ipsum dolor sit amet, ei vix prima affert lobortis, et
+                {/* Lorem ipsum dolor sit amet, ei vix prima affert lobortis, et
                 eius debet per. Modo laudem gloriatur quo ut. No oblique
                 epicurei sea, vis movet laboramus sadipscing ad, quo at alia
                 ferri. Graeci numquam eum ad, ei duo zril docendi forensibus,
                 pro vivendo voluptua torquatos ad. Quot erat nec no, placerat
-                perpetua no has, graece viderer inciderint ei sed.
+                perpetua no has, graece viderer inciderint ei sed. */}
+                {property.description}
               </Text>
               <Text
                 style={{
@@ -313,6 +315,7 @@ export default class Detail extends Component {
                 }}
               >
                 Retal Square,DHA Phase 6,Karachi Pakistan
+                {/* {property.name} */}
               </Text>
             </View>
             <View
@@ -357,7 +360,7 @@ export default class Detail extends Component {
                     justifyContent: 'center',
                   }}
                 >
-                  <Text style={{color:'#fff',fontWeight:'bold'}}>CALL</Text>
+                  <Text style={{ color: '#fff', fontWeight: 'bold' }}>CALL</Text>
                 </Button>
                 <Button
                   rounded
@@ -369,7 +372,7 @@ export default class Detail extends Component {
                     justifyContent: 'center',
                   }}
                 >
-                  <Text style={{color:'#fff',fontWeight:'bold'}}>MESSAGE</Text>
+                  <Text style={{ color: '#fff', fontWeight: 'bold' }}>MESSAGE</Text>
                 </Button>
               </View>
             </View>
